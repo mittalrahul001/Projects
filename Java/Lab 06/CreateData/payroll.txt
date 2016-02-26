@@ -1,0 +1,36 @@
+David Davies
+30.0
+8.75
+Eddie Edwards
+40.0
+7.75
+Fran Francis
+35.0
+11.2
+Gina Georges
+22.0
+6.3
+Hyacinth Ho
+40.0
+9.21
+Rahul Mittal
+40.0
+40.5
+Isadora Irving
+27.0
+9.6
+Jackson Jameson
+35.0
+9.2
+Betty Boop
+66
+22.00
+Tom Ceina
+41
+15.45
+Kathy Kay
+43
+8.90
+Larry Lance
+52
+11.35

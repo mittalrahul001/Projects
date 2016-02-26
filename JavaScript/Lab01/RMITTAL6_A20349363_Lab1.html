@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lab1</title>
+        <style type="text/css">
+            .result {
+                border: 4px solid black;
+            }
+        </style>
+
+        <!--Bootstrap -->
+        ​<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>​
+    </head>
+    <body style="background-color: sandybrown">
+
+        <div class="container" style="border: 4px solid green; width: 600px; background-color: cornsilk">
+            <div id="main" align="center">
+                <h1 style="color: brown; background-color: gold; border: 2px solid">ITMD - 565 - Lab1</h1>
+                <h2 style="color: maroon; background-color: antiquewhite; border: 2px solid">
+                    Rahul Mittal - rmittal6@hawk.iit.edu</h2>
+                Body Text: <input id="b1" name="b1" type="text"> <br><br>
+                Quantity:  <input id="q1" type="text"><br><br>
+                Color:
+                <select id="color1">
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="black">Black</option>
+                </select><br><br>
+                    <input id="run" type="button" class="btn btn-success" value="Run Lab">
+                    <input id="reset" type="button" value="Reset Lab" class="btn btn-success" disabled><br><br>
+                    <div id="result"></div>
+            </div>
+        </div>
+
+        <!--All Script -->
+        <script  type="text/javascript">
+            //Calling Anonymous function for OnClick event listener
+            run.addEventListener('click',function(){
+                var body = document.getElementById('b1').value;
+                var quantity = parseInt((document.getElementById('q1')).value);
+                var color = document.getElementById('color1').value;
+                var resultsCtr = document.getElementById('result');
+
+                //Perform validations
+                if(body === "")  {
+                    alert('Enter some value in body');
+                    return false;
+                }
+                else if(isNaN(quantity)){
+                    alert('Enter a number in quantity');
+                    return false;
+                }
+                else{
+                    document.getElementById("reset").disabled = false;
+                    while (result.firstChild) {
+                        result.removeChild(result.firstChild);
+                    }
+                    for( var i=1; i<=quantity;i++){
+                        //Create Division
+                        var divWrapper = document.createElement('div');
+                        divWrapper.id = 'div-wrapper' + i;
+                        divWrapper.className = 'result';
+                        divWrapper.style.borderColor = color;
+
+                        //Headline
+                        var hdline3 = document.createElement('h2');
+                        hdline3.style.color = color;
+                        var hdtext = document.createTextNode('Output' + " " + i);
+                        hdline3.appendChild(hdtext);
+                        divWrapper.appendChild(hdline3);
+
+                        //Creating Paragraph Format
+                        var p1 = document.createElement('p');
+                        var p1t = document.createTextNode(body);
+                        p1.appendChild(p1t);
+                        divWrapper.appendChild(p1);
+                        resultsCtr.appendChild(divWrapper);
+
+                        //Break a line
+                        var br = document.createElement('br');
+                        resultsCtr.appendChild(br);
+                    };
+                    document.getElementById('b1').value = " ";
+                    document.getElementById('q1').value = " ";
+                    document.getElementById('color1').value = "red"
+
+                }
+            }, false);
+
+            reset.addEventListener('click',function(){
+                while (result.firstChild) {
+                    result.removeChild(result.firstChild);
+                }
+            });
+        </script>
+    </body>
+</html>

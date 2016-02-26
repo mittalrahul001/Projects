@@ -1,0 +1,7 @@
+********************Payroll Report********************
+Employee Name:		   	Rahul Mittal
+Hours:   			40.0
+Wages: 			 	$40.5
+Gross Pay:			$1620.0
+Overtime Pay  			$0.00
+******************************************************

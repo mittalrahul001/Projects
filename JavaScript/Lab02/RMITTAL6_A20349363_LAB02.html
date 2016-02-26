@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Call</title>
+    <style type="text/css">
+
+        th{
+          background-color: rosybrown;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+    </style>
+
+    <!--Bootstrap -->
+    ​<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>​
+</head>
+<body style="background-color: sandybrown">
+
+    <div class="container" style="border: 4px solid green; width: 900px; background-color: cornsilk">
+        <div id="main" align="center">
+            <h1 style="color: brown; background-color: gold; border: 2px solid">ITMD - 565 - Lab2</h1>
+            <h2 style="color: maroon; background-color: antiquewhite; border: 2px solid">
+                Rahul Mittal - rmittal6@hawk.iit.edu</h2>
+            <button id="load" onclick="jsAjaxHandler()" type="button" class="btn btn-success">Load Data</button>
+            <button id="reset" onclick="resetHandler()" type="button" class="btn btn-success" disabled>Reset</button>
+            <br><br>
+            <h2 style="color: maroon; background-color: antiquewhite; border: 2px solid"> Employee List</h2>
+            <div id="result">
+                <table id="tab" style="width: 100%">
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Title</th>
+                    <th> Email</th>
+                    <th>Gender</th>
+                    <th>Active</th>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--All Script -->
+    <script  type="text/javascript">
+
+        function jsAjaxHandler() {
+
+            //Create a new HTTP Request for the URL
+            var xhr = new XMLHttpRequest();
+            var xhr_results = '';
+            if (xhr != null) {
+                xhr.open("GET", "http://libertyville.rice.iit.edu/scripts/lab2.php", true);
+                xhr.onreadystatechange = function(){
+                    if (xhr.readyState == 4) {
+                        var myArray = JSON.parse(xhr.responseText);
+                        console.log(myArray);
+                        parseData(myArray);
+                    }
+                };
+                xhr.send();
+            }
+
+            //Parse JSON data into an array and create HTML with that array
+            function parseData(arr){
+                var table = document.getElementById('tab');
+                for(var i=0;i<arr.length;i++){
+
+                    var tabRow = document.createElement('tr');
+                    table.appendChild(tabRow);
+
+                    appendTabledata(arr[i].id);
+                    appendTabledata(arr[i].first_name);
+                    appendTabledata(arr[i].last_name);
+                    appendTabledata(arr[i].title);
+                    appendTabledata(arr[i].email);
+                    appendTabledata(arr[i].gender);
+
+                    //if active field is true, make the cell color as green
+                    if(arr[i].active){
+                        appendActiveGreen(arr[i].active);
+                    }
+                    //if active field is false, make the cell color as red
+                    else{
+                        appendActiveRed(arr[i].active);
+                    }
+
+                }
+                document.getElementById("reset").disabled = false;
+                document.getElementById("load").disabled = true;
+            }
+
+            //Create a cell with green for the active field is true
+            function appendActiveGreen(element){
+                var tabData = document.createElement('td');
+                var tabContent = document.createTextNode(element);
+
+                tabData.style.backgroundColor="green";
+                tabData.appendChild(tabContent);
+                tab.appendChild(tabData);
+            }
+
+            //Create a cell with Red color for the active field is false
+            function appendActiveRed(element){
+                var tabData = document.createElement('td');
+                var tabContent = document.createTextNode(element);
+
+                tabData.style.backgroundColor="red";
+                tabData.appendChild(tabContent);
+                tab.appendChild(tabData);
+            }
+
+            //create a cell for all the elements other than active
+            function appendTabledata(element){
+
+                var tabData = document.createElement('td');
+                var tabContent = document.createTextNode(element);
+                tabData.appendChild(tabContent);
+                tab.appendChild(tabData);
+
+            }
+        }
+
+        //When Reset button is pressed, remove all the rows except the header.
+        function resetHandler(){
+
+            while (tab.firstChild) {
+                tab.removeChild(tab.firstChild);
+            }
+
+            document.getElementById("load").disabled = false;
+            document.getElementById("reset").disabled = true;
+
+            var tableHead = document.getElementById('tab');
+
+                createHeader("ID");
+                createHeader("First Name");
+                createHeader("Last Name");
+                createHeader("Title");
+                createHeader("Email");
+                createHeader("Gender");
+                createHeader("Active");
+
+                //Create Table header
+                function createHeader(elem){
+                    var hd = document.createElement('th');
+                    var hdText = document.createTextNode(elem);
+                    hd.appendChild(hdText);
+                    tableHead.appendChild(hd);
+                }
+        }
+
+    </script>
+</body>
+</html>
